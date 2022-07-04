@@ -10,10 +10,10 @@ if(isset($_POST['add_categorie_info']))
  {
 	 //$add_t_fullname,$add_t_address,$add_t_email,$add_t_username,$add_t_pass,$add_t_father,$add_t_mother,$add_t_dob,$add_t_qualification,$add_t_contact,$add_t_staff,$add_t_gender
 	 
-     $add_c_libelle = $_POST['libelle_add'];
+     $add_c_libelle = $_POST['libelle'];
     
 	 if( $add_c_libelle=="" ){
-		 echo "<script>alert('Some Field are missing....');</script>";
+		 echo "<script>alert('remplir le formulaire....');</script>";
 	 }
 	 else
 	 {
@@ -22,7 +22,7 @@ if(isset($_POST['add_categorie_info']))
 	 
 	 if($add_done==true)
 	 {
-		 echo "<script>window.location='categorie.php?categorie=categorie-information';</script>";
+		 echo "<script>window.location='table-categorie.php?categorie=categorie-information';</script>";
 	 }
 	 else
 	 {
@@ -66,6 +66,7 @@ if(isset($_POST['add_categorie_info']))
 </head>
 
 <body>
+
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         <div class="nano">
             <div class="nano-content">
@@ -105,6 +106,7 @@ if(isset($_POST['add_categorie_info']))
     </div>
     <!-- /# sidebar -->
 
+   
 
     <div class="header">
         <div class="container-fluid">
@@ -291,7 +293,8 @@ if(isset($_POST['add_categorie_info']))
     </div>
 
 
-
+    
+              
 
     <div class="content-wrap">
         <div class="main">
@@ -318,8 +321,7 @@ if(isset($_POST['add_categorie_info']))
                     <!-- /# column -->
                 </div>
 
-                
-                  
+               
                   <!-- The Modal -->
                   <div class="modal" id="myModal">
                     <div class="modal-dialog">
@@ -340,12 +342,14 @@ if(isset($_POST['add_categorie_info']))
                                 
                     
                             <form  method="POST">
-                                <div class="input-group input-group-default">
+                                <div class="input-group input-group-default form-control m-4 col-4 mb-4 ">
+                                     <input type="text" name="libelle" id="">
                     
-                                    <input type="text" mame="libelle_add" placeholder="categorie" class="form-control m-4 col-4 mb-4 ">
+                                
                                 </div>
                             
-                                <button type="submit" class="btn btn-success col-3" name="add_categorie_info"> Ajouter</button>
+                                
+                                <button type="sumit" class="btn btn-success col-3" name="add_categorie_info">Ajouter</button>
                             </form>
                         </div>
                   
@@ -357,6 +361,7 @@ if(isset($_POST['add_categorie_info']))
                       </div>
                     </div>
                   </div>
+                 
                 <!-- /# row -->
                 <section id="main-content">
                     <div class="row">
@@ -394,8 +399,8 @@ if(isset($_POST['add_categorie_info']))
                 
                                                         
                                                         <td> 
-                                                            <a th:href="@{/showFormUpdateCategorie/{id}(id=${categorie.id})}" class="btn btn-primary"> Modifier</a>
-                                                            <a th:href="@{/deleteCategorie/{id}(id=${categorie.id})}" class="btn btn-danger"> Supprimer</a>
+                                                            <a th:href="@{/showFormUpdateCategorie/{id}(id=${categorie.id})}" class="btn btn-primary text-white"> Modifier</a>
+                                                            <a th:href="@{/deleteCategorie/{id}(id=${categorie.id})}" class="btn btn-danger text-white"> Supprimer</a>
                                                             
                                                         </td>
                                                     </tr>
@@ -431,7 +436,7 @@ if(isset($_POST['add_categorie_info']))
 
 
 
-
+        
 
 
 

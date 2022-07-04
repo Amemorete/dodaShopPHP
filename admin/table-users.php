@@ -1,5 +1,49 @@
+
+<?php 
+include "setting/config.php";
+ 
+ if(isset($_POST['user_add_now']))
+ {
+	 // $std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact
+	 $std_nom = $_POST['nom'];
+	 $std_prenom = $_POST['prenom'];
+	 $std_password = $_POST['pwd'];
+	 $std_abilite = $_POST['abilite'];
+	 $std_date= $_POST['dob'];
+	 $std_adresse = $_POST['adresse'];
+	 $std_email = $_POST['email'];
+
+
+	 $std_sexe = $_POST['sexe'];
+	 
+	 if($std_abilite=="" or $std_adresse=="" or $std_date==""  or $std_email=="" 
+     or $std_nom=="" or $std_prenom=="" or $std_password=="" or  $std_sexe=="")
+	 {
+		 echo "<script>alert('remplissez le formulaire');</script>";
+	 }
+	 else
+	 {
+		 
+		 $add_user_done = $ravi->add_user($std_abilite,$std_adresse,$std_date,$std_email,$std_nom,$std_password,$std_prenom, $std_sexe);
+		 if($add_user_done==true)
+		 {
+			 echo "<script>window.location = 'table-users.php?ravi=users-information';</script>";
+		 }
+		 else
+		 {
+			 echo "<script>alert('contact with developer');</script>";
+		 }
+		 
+	 }
+	 
+ }
+
+
+?>
+
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 
 <head>
     <meta charset="utf-8">
@@ -20,6 +64,8 @@
     <link href="admin/assets/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="admin/assets/css/lib/helper.css" rel="stylesheet">
     <link href="admin/assets/css/style.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -278,56 +324,110 @@
                 </div>
                 <!-- /# row -->
              
-                <section id="main-content"> 
-                
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-title">
-                                    <h4>Table  </h4>
-                                    
+                 <!-- The Modal -->
+                 <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                  
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Enregistrement d'une Categorie</h4>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                  
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            
+                               
+                                   
+                            <h2>Ajouter un Article</h2>
+                                
+                    
+                <form method="post" >
+         ;
+
+
+                           
+                            <div class="vali-form row">
+                            
+                                
+                                <div class="col-md-6 form-group1 form-last">
+                                    <label class="control-label">Nom</label>
+                                    <input type="text" placeholder="nom" required="" name="nom">
                                 </div>
-                                <div class="card-body">
-                                    <form action="#" th:action="@{/saveUsers}" th:object="${users}" method="POST">
-                                        <div class="input-group input-group-default">
-                                            <input type="text" th:field="*{nom}" placeholder="nom de l'utilisateur " class="form-control m-4 col  ">
+                                <div class="col-md-6 form-group1 form-last">
+                                    <label class="control-label">Prenom</label>
+                                    <input type="text" placeholder="prenom" required="" name="prenom">
+                                </div>
+                                
+                                <div class="col-md-6 form-group1">
+                                    <label class="control-label">Mot de passe</label>
+                                    <input type="text" placeholder="Password" required="" name="pwd">
+                                </div>
+
+                                
+
+                                <div class="col-md-6 form-group1">
+                                     <label class="control-label">gendre</label>
+                                     <select name="sexe" id="" class="form-control">
+                                         <option value="m">Masculin</option>
+                                         <option value="f">Féminin</option>
+                                     </select>
+                                </div>
+
+                                <div class="col-md-6 form-group1 form-last">
+                                    <label class="control-label">Date de naissance</label>
+                                    <input type="date" placeholder="eg 29 Feb 200" required="" name="dob">
+                                </div>
+                                <div class="col-md-6 form-group1">
+                                    <label class="control-label">Addresse</label>
+                                    <input type="text" placeholder="Addresse" required="" name="adresse">
+                                </div>
+                                <div class="col-md-6 form-group1 ">
+                                    <label class="control-label">Abilité</label>
+                                    <input type="text" placeholder="abilite" required="" name="abilite">
+                                </div>
                             
-                                            <input type="text" th:field="*{prenom}" placeholder="prenom l'etudiant" class="form-control m-4 col mb-4 ">
-                                            
-                            
-                                        </div>
-                                        <div  class="input-group input-group-default">
-                                            <select name="" id=""  th:field="*{sexe}" class="form-control m-4 col-3 mb-4">
-                                                <option value="f">feminin</option>
-                                                <option value="m">masculin</option>
-                                            </select>
-                                        <input type="text" th:field="*{adresse}" placeholder="l'adresse" class="form-control m-4 col-7 mb-4 ">
-                                        </div>
-                                        <input type="text" th:field="*{abilite}" placeholder="l'abilite" class="form-control m-4 col-8 mb-4 ">
-                                        
-                            
-                                        
-                                        <div class="input-group input-group-default">
-                                            <input type="text" th:field="*{email}" placeholder="entrer l'email" class="form-control m-4 col-4  ">
-                                        <input type="date" th:field="*{dateNaissance}" placeholder="Date de naissance" class="form-control m-4 col-4">
-                                        
-                                        </div>
-                                        <input type="text" th:field="*{password}" placeholder="password" class="form-control m-4 col-4">
-                                       
-                            
-                                        <button type="submit" class="btn btn-success col-4"> Ajouter</button>
-                                        <button type="reset" class="btn btn-info col-4"> Annuler</button>
-                                    </form>
+                               
+                               
+                                <div class="col-md-6 form-group1 form-last">
+                                    <label class="control-label">Email</label>
+                                    <input type="text" placeholder="email" required="" name="email">
                                 </div>
                             </div>
+                            <div class="clearfix"> </div>
+                        <div class="col-md-12 form-group button-2">
+                            <input type="submit" class="btn btn-primary" value="Ajouter un utilisateur" name="user_add_now">
+                            <button type="reset" class="btn btn-default">Annuler</button>
                         </div>
+                        <div class="clearfix"> </div>
+			     </form>
+                        </div>
+                  
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                  
+                      </div>
+                    </div>
+                  </div>
+                <section id="main-content"> 
+                
+                  
                         <!-- /# column -->
-                        <div class="col-lg-8">
+                        <div class="col-lg">
                             
                             <div class="card">
                                 <div class="card-title">
+                                <a href="#"
+                                    class="btn btn-success btn-sm mb-3"  data-bs-toggle="modal" data-bs-target="#myModal">Ajouter une nouvelle Categorie</a>
                                     <h4>Table Users </h4>
+                                    
                                 </div>
+                               
+    
+                                                        
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped">
@@ -348,25 +448,34 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="users : ${listusers}">
+                                            <?php $user_dis_admin = $ravi-> user_info_display_admin();
+								$t_sn = 1;
+								while($user_info_admin =$user_dis_admin->fetch_assoc())					{
+									
+								
+													?>
+                                                <tr >
+                                              
     
-                                                    <td class="badge badge-success" th:text="${users.id}">
-                                                    <td th:text="${users.nom}"></td>
+                                                    <td class="btn btn-success" ><?php echo $user_info_admin['id']; ?></td>
+                                                    <td ><?php echo $user_info_admin['nom']; ?></td>
                                                         
-                                                    <td th:text="${users.prenom}"></td>
-                                                    <td th:text="${users.sexe}"></td>
-                                                    <td th:text="${users.adresse}"></td>
-                                                    <td th:text="${users.email}"></td>
-                                                    <td th:text="${users.abilite}"></td>
-                                                    <td th:text="${users.dateNaissance}"></td>
-                                                    <td th:text="${users.password}"></td>
-                                                    <td th:text="${users.dateCreate}"></td>
-                                                    <td th:text="${users.dateUpdate}"></td>
+                                                    <td ><?php echo $user_info_admin['prenom']; ?></td>
+                                                    <td ><?php echo $user_info_admin['sexe']; ?></td>
+                                                    <td ><?php echo $user_info_admin['adresse']; ?></td>
+                                                    <td ><?php echo $user_info_admin['email']; ?></td>
+                                                    <td ><?php echo $user_info_admin['abilite']; ?></td>
+                                                    <td ><?php echo $user_info_admin['date_naissance']; ?></td>
+                                                    <td ><?php echo $user_info_admin['password']; ?></td>
+                                                    <td ><?php echo $user_info_admin['date_create']; ?></td>
+                                                    <td ><?php echo $user_info_admin['date_update']; ?></td>
                                                     <td> 
-                                                        <a th:href="@{/showFormUpdateUsers/{id}(id=${users.id})}" class="btn btn-primary"> Modifier</a>
-                                                        <a th:href="@{/deleteUsers/{id}(id=${users.id})}" class="btn btn-danger"> Supprimer</a>
+                                                        <a th:href="@{/showFormUpdateUsers/{id}(id=${users.id})}" class="btn btn-primary text-white"> Modifier</a>
+                                                        <a th:href="@{/deleteUsers/{id}(id=${users.id})}" class="btn btn-danger text-white"> Supprimer</a>
                                                      </td>
                                                 </tr>
+                                                <?php $t_sn++; } ?>
+    
                                             </tbody>
                                         </table>
                                     </div>

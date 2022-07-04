@@ -1,3 +1,46 @@
+<?php
+
+
+
+if(isset($_POST['add_produit_info']))
+ {
+	 //$add_t_fullname,$add_t_address,$add_t_email,$add_t_username,$add_t_pass,$add_t_father,$add_t_mother,$add_t_dob,$add_t_qualification,$add_t_contact,$add_t_staff,$add_t_gender
+	 
+     $add_p_nom = $_POST['nom'];
+     $add_p_prix = $_POST['quantite'];
+     $add_p_prix = $_POST['prixUnitaire'];
+     $add_p_description = $_POST['description'];
+     $add_p_categorie = $_POST['categorie'];
+
+
+     $add_p_libelle = $_POST['libelle_add'];
+     $add_p_libelle = $_POST['libelle_add'];
+     $add_p_libelle = $_POST['libelle_add'];
+     $add_p_libelle = $_POST['libelle_add'];
+     $add_p_libelle = $_POST['libelle_add'];
+    
+	 if( $add_c_libelle=="" ){
+		 echo "<script>alert('remplir le formulaire....');</script>";
+	 }
+	 else
+	 {
+	
+        $add_done = $ravi->add_categorie($add_c_libelle);
+	 
+	 if($add_done==true)
+	 {
+		 echo "<script>window.location='produit.php?produit=produit-information';</script>";
+	 }
+	 else
+	 {
+		 echo "<script>alert('unsuccess add teacher information');</script>";
+	 }
+ }
+ }
+?>
+
+
+
 <?php 
 session_start();
 
@@ -39,6 +82,7 @@ include "setting/config.php";
 </head>
 
 <body>
+  
 <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         <div class="nano">
             <div class="nano-content">
@@ -312,28 +356,36 @@ include "setting/config.php";
                             <h2>Ajouter un produit</h2>
                                 
                     
-                            <form action="#" th:action="@{/saveProduit}" th:object="${produit}" method="POST" enctype="multipart/form-data">
+                            <form  method="POST" enctype="multipart/form-data">
                                 <div class="row input-group input-group-default">
                     
-                                    <input type="text" th:field="*{libelle}" placeholder="le nom de l'article" class="form-control m-4 col-4 ">
-                                    <input type="number" th:field="*{quantite}" placeholder="quantite" class="form-control m-4 col-4 mb-4 ">
-                                    <input type="number" th:field="*{prixUnitaire}" placeholder="prixUnitaire" class="form-control m-4 col-4  ">
+                                    <input type="text" name="nom" placeholder="le nom de l'article" class="form-control m-4 col-4 ">
+                                    <input type="number" name="quantite" placeholder="quantite" class="form-control m-4 col-4 mb-4 ">
+                                    <input type="number" name="prixUnitaire" placeholder="prixUnitaire" class="form-control m-4 col-4  ">
                                    
                     
                                 </div>
                                 <div class="row input-group input-group-default">
                     
-                                    <input type="text" th:field="*{description}" placeholder="description" class="form-control m-4 col-4 mb-4 ">
+                                    <input type="text" name="description" placeholder="description" class="form-control m-4 col-4 mb-4 ">
                                     
                     
-                                        <select th:field="*{categorie}" class="form-control m-4 col-4  " >
+                                        <select name="categorie" class="form-control m-4 col-4  " >
                                             <option value="">choissiez la categorie</option>
-                                            <option th:each="categorie : ${listcategorie}" 
-                                            th:value="${categorie.id}"
-                                            th:text="${categorie.libelle}">
+
+                                            <?php 
+                                                    $st_add_categorie = $ravi->categorie_info_display_admin();
+                                                    while($st_add_categorie_fetch = $st_add_categorie->fetch_assoc())
+                                                    {
+                                                    ?>
+                                                            <option value="<?php echo $st_add_categorie_fetch['id']; ?>"><?php echo $st_add_categorie_fetch['libelle']; ?></option>
+                                                    
+                                            <?php } ?>
+                                          
                         
                                             </option>
                                         </select>
+
                         
                     
                                     <input type="file" name="image1" placeholder="photo1"    class="form-control m-4 col-6 mb-4 ">
@@ -414,8 +466,8 @@ include "setting/config.php";
                 
                                                         
                                                         <td> 
-                                                            <a th:href="@{/formUpdateProduit/{id}(id=${produit.id})}" class="btn btn-primary"> Modifier</a>
-                                                            <a th:href="@{/deleteProduit/{id}(id=${produit.id})}" class="btn btn-danger"> Supprimer</a>
+                                                            <a th:href="@{/formUpdateProduit/{id}(id=${produit.id})}" class="btn btn-primary text-white"> Modifier</a>
+                                                            <a th:href="@{/deleteProduit/{id}(id=${produit.id})}" class="btn btn-danger text-white"> Supprimer</a>
                                                             
                                                         </td>
                                                     </tr>

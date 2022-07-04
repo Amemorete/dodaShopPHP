@@ -111,14 +111,34 @@ class project2
 		return $produit_info_admin_run;
 	}
 
+	//getAll
+	public function user_info_display_admin()
+	{
+		$user_info_admin = "SELECT * from users";
+		$user_info_admin_run = $this->connectdb->query($user_info_admin);
+		return $user_info_admin_run;
+	}
+
 
 
 	//add categorie
+
+
 	public function add_categorie($add_c_categorie)
 	{
 	$add_categorie = "insert into categorie (libelle) value ('$add_c_categorie')";
 	$add_categorie_run = $this->connectdb->query($add_categorie);
 		return $add_categorie_run;
+	}
+	
+
+	//add users
+	public function add_user($std_abilite,$std_adresse,$std_date,$std_email,$std_nom,$std_password,$std_prenom, $std_sexe)
+	{
+		$add_users = "insert into users (abilite,adresse,date_naissance,email,nom,password,prenom,sexe) value ('$std_abilite','$std_adresse','std_date','$std_email','$std_nom','$std_password','$std_prenom', '$std_sexe')";
+		$add_user_run = $this->connectdb->query($add_users);
+		
+		return $add_user_run;
 	}
 
 
