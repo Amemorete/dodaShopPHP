@@ -344,25 +344,22 @@ include "setting/config.php";
                                 
                     
                 <form method="post" >
-         ;
-
-
-                           
+   
                             <div class="vali-form row">
                             
                                 
                                 <div class="col-md-6 form-group1 form-last">
                                     <label class="control-label">Nom</label>
-                                    <input type="text" placeholder="nom" required="" name="nom">
+                                    <input type="text" placeholder="nom" required="" name="nom" class="form-control">
                                 </div>
                                 <div class="col-md-6 form-group1 form-last">
                                     <label class="control-label">Prenom</label>
-                                    <input type="text" placeholder="prenom" required="" name="prenom">
+                                    <input type="text" placeholder="prenom" required="" name="prenom" class="form-control">
                                 </div>
                                 
                                 <div class="col-md-6 form-group1">
                                     <label class="control-label">Mot de passe</label>
-                                    <input type="text" placeholder="Password" required="" name="pwd">
+                                    <input type="text" placeholder="Password" required="" name="pwd" class="form-control">
                                 </div>
 
                                 
@@ -375,24 +372,24 @@ include "setting/config.php";
                                      </select>
                                 </div>
 
-                                <div class="col-md-6 form-group1 form-last">
+                                <div class="col-md-6 form-group1 form-last ">
                                     <label class="control-label">Date de naissance</label>
-                                    <input type="date" placeholder="eg 29 Feb 200" required="" name="dob">
+                                    <input type="date" placeholder="eg 29 Feb 200" required="" name="dob" class="form-control">
                                 </div>
                                 <div class="col-md-6 form-group1">
                                     <label class="control-label">Addresse</label>
-                                    <input type="text" placeholder="Addresse" required="" name="adresse">
+                                    <input type="text" placeholder="Addresse" required="" name="adresse" class="form-control">
                                 </div>
                                 <div class="col-md-6 form-group1 ">
                                     <label class="control-label">Abilité</label>
-                                    <input type="text" placeholder="abilite" required="" name="abilite">
+                                    <input type="text" placeholder="abilite" required="" name="abilite" class="form-control">
                                 </div>
                             
                                
                                
                                 <div class="col-md-6 form-group1 form-last">
                                     <label class="control-label">Email</label>
-                                    <input type="text" placeholder="email" required="" name="email">
+                                    <input type="text" placeholder="email" required="" name="email" class="form-control">
                                 </div>
                             </div>
                             <div class="clearfix"> </div>
@@ -470,8 +467,8 @@ include "setting/config.php";
                                                     <td ><?php echo $user_info_admin['date_create']; ?></td>
                                                     <td ><?php echo $user_info_admin['date_update']; ?></td>
                                                     <td> 
-                                                        <a th:href="@{/showFormUpdateUsers/{id}(id=${users.id})}" class="btn btn-primary text-white"> Modifier</a>
-                                                        <a th:href="@{/deleteUsers/{id}(id=${users.id})}" class="btn btn-danger text-white"> Supprimer</a>
+                                                        <a href=" update_users.php?user=user-up&userid=<?php echo $user_info_admin['id']; ?>" class="btn btn-primary text-white"> Modifier</a>
+                                                        <a href="del_users.php?user=user-del&userid=<?php echo $user_info_admin['id']; ?>" class="btn btn-danger text-white">Supprimer</a>
                                                      </td>
                                                 </tr>
                                                 <?php $t_sn++; } ?>

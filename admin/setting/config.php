@@ -111,10 +111,17 @@ class project2
 		return $produit_info_admin_run;
 	}
 
-	//getAll
+	//getAll user
 	public function user_info_display_admin()
 	{
 		$user_info_admin = "SELECT * from users";
+		$user_info_admin_run = $this->connectdb->query($user_info_admin);
+		return $user_info_admin_run;
+	}
+	//getById user
+	public function userBy_info_display_admin($up_userid)
+	{
+		$user_info_admin = "SELECT * from users where id='$up_userid'";
 		$user_info_admin_run = $this->connectdb->query($user_info_admin);
 		return $user_info_admin_run;
 	}
@@ -130,17 +137,52 @@ class project2
 	$add_categorie_run = $this->connectdb->query($add_categorie);
 		return $add_categorie_run;
 	}
+	//update categorie
+	public function update_categorie($add_c_libelle,$date,$up_categorieid)
+	{
+	$add_categorie = "UPDATE categorie set libelle='$add_c_libelle',date_update='$date'  where id='$up_categorieid'";
+	$add_categorie_run = $this->connectdb->query($add_categorie);
+		return $add_categorie_run;
+	}
+
+	//////// delete categorie form admin //////////////////////
+	public function delete_categorie($del_categorie)
+	{
+	$categorie_user_info = " delete from categorie where id='$del_categorie' ";
+	$categorie_user_info_run = $this->connectdb->query($categorie_user_info);
+	return $categorie_user_info_run;
+	}
 	
 
 	//add users
 	public function add_user($std_abilite,$std_adresse,$std_date,$std_email,$std_nom,$std_password,$std_prenom, $std_sexe)
 	{
-		$add_users = "insert into users (abilite,adresse,date_naissance,email,nom,password,prenom,sexe) value ('$std_abilite','$std_adresse','std_date','$std_email','$std_nom','$std_password','$std_prenom', '$std_sexe')";
+		$add_users = "insert into users (abilite,adresse,date_naissance,email,nom,password,prenom,sexe) value ('$std_abilite','$std_adresse','$std_date','$std_email','$std_nom','$std_password','$std_prenom', '$std_sexe')";
 		$add_user_run = $this->connectdb->query($add_users);
 		
 		return $add_user_run;
 	}
+	
+	
 
+	//update users
+	public function up_user($std_abilite,$std_adresse,$std_date,$std_email,$std_nom,$std_password,$std_prenom, $std_sexe, $std_date_up,$up_userid)
+	{
+		$up_users = "UPDATE users set  abilite='$std_abilite',adresse='$std_adresse',date_naissance='$std_date',
+		email='$std_email',nom='$std_nom',password='$std_password',prenom='$std_prenom',sexe='$std_sexe' , date_update='$std_date_up' where id='$up_userid'";
+		
+		$up_user_run = $this->connectdb->query($up_users);
+		
+		return $up_user_run;
+	}
+
+	//////// delete user form admin //////////////////////
+	public function delete_user($del_user)
+	{
+	$delete_user_info = " delete from users where id='$del_user' ";
+	$delete_user_info_run = $this->connectdb->query($delete_user_info);
+	return $delete_user_info_run;
+	}
 
 
 
@@ -210,13 +252,7 @@ class project2
 		return $add_teacher_run;
 	}
 	
-	//////// delete teacher form admin //////////////////////
-	public function delete_teacher($del_teacher)
-	{
-	$delete_teacher_info = " delete from teacher_info where t_id='$del_teacher'";
-	$delete_teacher_info_run = $this->connectdb->query($delete_teacher_info);
-	return $delete_teacher_info_run;
-	}
+	
 	////////////////////// looping class from subject info table////////////////
 	public function grade($grade)
 	{

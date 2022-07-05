@@ -399,8 +399,8 @@ if(isset($_POST['add_categorie_info']))
                 
                                                         
                                                         <td> 
-                                                            <a th:href="@{/showFormUpdateCategorie/{id}(id=${categorie.id})}" class="btn btn-primary text-white"> Modifier</a>
-                                                            <a th:href="@{/deleteCategorie/{id}(id=${categorie.id})}" class="btn btn-danger text-white"> Supprimer</a>
+                                                            <a href="update_categorie.php?categorie=categorie-up&categorieid=<?php echo $categorie_info_admin['id']; ?>" class="btn btn-primary text-white"> Modifier</a>
+                                                            <a href="del_categorie.php?categorie=categorie-del&categorieid=<?php echo $categorie_info_admin['id']; ?>" class="btn btn-danger text-white"> Supprimer</a>
                                                             
                                                         </td>
                                                     </tr>

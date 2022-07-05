@@ -1,4 +1,41 @@
+<?php 
+session_start();
 
+
+include "setting/config.php";
+
+$up_categorieid = $_GET['categorieid'];
+
+
+
+if(isset($_POST['modif']))
+ {
+	 //$add_t_fullname,$add_t_address,$add_t_email,$add_t_username,$add_t_pass,$add_t_father,$add_t_mother,$add_t_dob,$add_t_qualification,$add_t_contact,$add_t_staff,$add_t_gender
+	 
+     $add_c_libelle = $_POST['libelle'];
+     $date=$_POST['date'];
+    
+	 if( $add_c_libelle=="" ){
+		 echo "<script>alert('remplir le formulaire....');</script>";
+	 }
+	 else
+	 {
+	
+        $add_done = $ravi->update_categorie($add_c_libelle,$date,$up_categorieid);
+	 
+	 if($add_done==true)
+	 {
+		 echo "<script>window.location='table-categorie.php?categorie=categorie-information';</script>";
+	 }
+	 else
+	 {
+		 echo "<script>alert('unsuccess add teacher information');</script>";
+	 }
+ }
+ }
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
@@ -31,15 +68,16 @@
             
         </div>
 
-    <form action="#" th:action="@{/updateCategorie}" th:object="${categorie}" method="POST">
+    <form  th:object="${categorie}" method="POST">
         <input type="hidden" th:field="*{id}" />
         <div class="input-group input-group-default">
-            <input type="text" th:field="*{libelle}" placeholder="le nom du categorie" class="form-control m-4 col-4  ">
+            <input type="text" name="libelle" placeholder="le nom du categorie" class="form-control m-4 col-4  ">
+            <input type="date" name="date" placeholder="date mise a jour" class="form-control m-4 col-4  ">
 
 
 
         </div>
-        <button type="submit" class="btn btn-success col-3"> Modifier</button>
+        <button type="submit" class="btn btn-success col-3" name="modif"> Modifier</button>
         <button type="reset" class="btn btn-info col-3 mb-3"> Annuler</button>
     </form>
 

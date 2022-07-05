@@ -1,7 +1,58 @@
+<?php 
+include "setting/config.php";
 
+
+$up_userid = $_GET['userid'];
+ 
+ if(isset($_POST['user_add_now']))
+ {
+	 // $std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact
+	 $std_nom = $_POST['nom'];
+	 $std_prenom = $_POST['prenom'];
+	 $std_password = $_POST['pwd'];
+	 $std_abilite = $_POST['abilite'];
+	 $std_date= $_POST['dob'];
+	 $std_adresse = $_POST['adresse'];
+	 $std_email = $_POST['email'];
+     $std_date_up = $_POST['date_update'];
+
+	 $std_sexe = $_POST['sexe'];
+	 
+	 if($std_abilite=="" or $std_adresse=="" or $std_date==""  or $std_email=="" 
+     or $std_nom=="" or $std_prenom=="" or $std_password=="" or  $std_sexe=="")
+	 {
+		 echo "<script>alert('remplissez le formulaire');</script>";
+	 }
+	 else
+	 {
+		 
+		 $update_user_done = $ravi->up_user($std_abilite,$std_adresse,$std_date,$std_email,$std_nom,$std_password,$std_prenom, $std_sexe, $std_date_up,$up_userid);
+		 if($update_user_done==true)
+		 {
+			 echo "<script>window.location = 'table-users.php?ravi=users-information';</script>";
+		 }
+		 else
+		 {
+			 echo "<script>alert('contact with developer');</script>";
+		 }
+		 
+	 }
+	 
+ }
+
+ 	
+
+ $dis_general_data = $ravi->userBy_info_display_admin($up_userid);
+
+$row= $dis_general_data->fetch_assoc();
+
+
+
+
+?>
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 
 <head>
     <meta charset="ISO-8859-1">
@@ -30,36 +81,70 @@
         <h2>Modifier L'admin</h2>
             </div>
 
-        <form action="#" th:action="@{/updateUsers}" th:object="${users}" method="POST">
-            <input type="hidden" th:field="*{id}" />
-            <div class="input-group input-group-default">
-                <input type="text" th:field="*{nom}" placeholder="nom de l'utilisateur " class="form-control m-4 col-4  ">
+            <form method="post" >
+   
+   <div class="vali-form row">
+   
+       
+       <div class="col-md-6 form-group1 form-last">
+           <label class="control-label">Nom</label>
+           <input type="text" value="<?php echo $row['nom']; ?>" required="" name="nom" class="form-control">
+       </div>
+       <div class="col-md-6 form-group1 form-last">
+           <label class="control-label">Prenom</label>
+           <input type="text"  value="<?php echo $row['prenom']; ?>" required="" name="prenom" class="form-control">
+       </div>
+       
+       <div class="col-md-6 form-group1">
+           <label class="control-label">Mot de passe</label>
+           <input type="text"  value="<?php echo $row['password']; ?>" required="" name="pwd" class="form-control">
+       </div>
 
-                <input type="text" th:field="*{prenom}" placeholder="prenom l'etudiant" class="form-control m-4 col-4 mb-4 ">
-                <input type="text" th:field="*{sexe}" placeholder="genre" class="form-control m-4 col-4 mb-4 ">
+       
 
-            </div>
-            <div  class="input-group input-group-default">
-            <input type="text" th:field="*{adresse}" placeholder="l'adresse" class="form-control m-4 col-8 mb-4 ">
-            <input type="text" th:field="*{abilite}" placeholder="l'abilite" class="form-control m-4 col-8 mb-4 ">
-            </div>
-            
+       <div class="col-md-6 form-group1">
+            <label class="control-label">gendre</label>
+            <select name="sexe" id="" class="form-control">
+                <option value="m">Masculin</option>
+                <option value="f">Féminin</option>
+            </select>
+       </div>
 
-            
-            <div class="input-group input-group-default">
-                <input type="text" th:field="*{email}" placeholder="entrer l'email" class="form-control m-4 col-4  ">
-            <input type="date" th:field="*{dateNaissance}" placeholder="Date de naissance" class="form-control m-4 col-4">
-            <input type="text" th:field="*{password}" placeholder="password" class="form-control m-4 col-4">
-            </div>
-           
-
-            <button type="submit" class="btn btn-success col-3"> Modifier</button>
-            <button type="reset" class="btn btn-info col-3"> Annuler</button>
-        </form>
+       <div class="col-md-6 form-group1 form-last ">
+           <label class="control-label">Date de naissance</label>
+           <input type="date"  value="<?php echo $row['date_naissance']; ?>" required="" name="dob" class="form-control">
+       </div>
+       <div class="col-md-6 form-group1">
+           <label class="control-label">Addresse</label>
+           <input type="text"  value="<?php echo $row['adresse']; ?>" required="" name="adresse" class="form-control">
+       </div>
+       <div class="col-md-6 form-group1 ">
+           <label class="control-label">Abilité</label>
+           <input type="text"  value="<?php echo $row['abilite']; ?>" required="" name="abilite" class="form-control">
+       </div>
+   
+      
+      
+       <div class="col-md-6 form-group1 form-last">
+           <label class="control-label">Email</label>
+           <input type="text"  value="<?php echo $row['email']; ?>" required="" name="email" class="form-control">
+       </div>
+       <div class="col-md-6 form-group1 form-last">
+           <label class="control-label">Date de Modification</label>
+           <input type="date"  value="<?php echo $row['date_update']; ?>" required="" name="date_update" class="form-control">
+       </div>
+   </div>
+   <div class="clearfix"> </div>
+<div class="col-md-12 form-group button-2">
+   <input type="submit" class="btn btn-primary" value="Modifier un utilisateur" name="user_add_now">
+   <button type="reset" class="btn btn-default">Annuler</button>
+</div>
+<div class="clearfix"> </div>
+</form>
 
       
 
-        <a th:href="@{/users}" class="btn btn-primary col-2 m-4">retrour</a>
+        <a th:href="@{/users}" class="btn btn-primary col-2 m-4 text-white">retrour</a>
         </div>
     </div>
     <!-- jquery vendor -->
