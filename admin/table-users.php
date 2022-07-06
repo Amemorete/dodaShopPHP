@@ -1,7 +1,11 @@
 
 <?php 
 include "setting/config.php";
- 
+session_start();
+if(!$_SESSION['admin'])
+{
+	header("location:../login.php");
+}
  if(isset($_POST['user_add_now']))
  {
 	 // $std_fullname,$std_username,$std_password,$std_grade,$std_roll,$std_dob,$std_address,$std_district,$std_gender,$std_father,$std_mother,$std_parent_contact
@@ -82,14 +86,12 @@ include "setting/config.php";
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
                             <li><a href="index.php">Dashboard 1</a></li>
-                            <li><a href="index1.html">Dashboard 2</a></li>
+                            <li><a href="#">Dashboard 2 </a></li>
                         </ul>
                     </li>
 
                     <li class="label">Apps</li>
                     <li><a href="uc-calendar.php"><i class="ti-calendar"></i> Calandrier </a></li>
-                    <li><a href="email.php"><i class="ti-email"></i> Email</a></li>
-                    <li><a href="profile.php"><i class="ti-user"></i> Profile</a></li>
                     <li><a href="table-produit.php"><i class="ti-truck"></i>produits</a></li>
                     <li><a href="table-categorie.php"><i class="ti-view-list-alt"></i>categories </a></li>
         
@@ -102,13 +104,12 @@ include "setting/config.php";
                            
                         </ul>
                     </li>
+                    <li><a href="deconnexion.php"> <i class="ti-power-off"></i>Deconnexion </a></li>
                     
                 </ul>
             </div>
         </div>
     </div>
-    <!-- /# sidebar -->
-
 
     <div class="header">
         <div class="container-fluid">
@@ -129,119 +130,12 @@ include "setting/config.php";
                                     <div class="dropdown-content-heading">
                                         <span class="text-left">Recent Notifications</span>
                                     </div>
-                                    <div class="dropdown-content-body">
-                                        <ul>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mr. John</div>
-                                                        <div class="notification-text">5 members joined today </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mariam</div>
-                                                        <div class="notification-text">likes a photo of you</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Tasnim</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mr. John</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="text-center">
-                                                <a href="#" class="more-link">See All</a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
-                                <i class="ti-email"></i>
-                                <div class="drop-down dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-content-heading">
-                                        <span class="text-left">2 New Messages</span>
-                                        <a href="email.html">
-                                            <i class="ti-pencil-alt pull-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="dropdown-content-body">
-                                        <ul>
-                                            <li class="notification-unread">
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/1.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Michael Qin</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="notification-unread">
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/2.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mr. John</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Michael Qin</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/2.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mr. John</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="text-center">
-                                                <a href="#" class="more-link">See All</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
-                                <span class="user-avatar">John
+                                <span class="user-avatar">Admin
                                     <i class="ti-angle-down f-s-10"></i>
                                 </span>
                                 <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
@@ -252,35 +146,9 @@ include "setting/config.php";
                                     <div class="dropdown-content-body">
                                         <ul>
                                             <li>
-                                                <a href="#">
-                                                    <i class="ti-user"></i>
-                                                    <span>Profile</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-email"></i>
-                                                    <span>Inbox</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-settings"></i>
-                                                    <span>Setting</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-lock"></i>
-                                                    <span>Lock Screen</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
+                                                <a href="deconnexion.php">
                                                     <i class="ti-power-off"></i>
-                                                    <span>Logout</span>
+                                                    <span>Se deconnecter</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -293,7 +161,6 @@ include "setting/config.php";
             </div>
         </div>
     </div>
-
 
 
    
@@ -463,7 +330,7 @@ include "setting/config.php";
                                                     <td ><?php echo $user_info_admin['email']; ?></td>
                                                     <td ><?php echo $user_info_admin['abilite']; ?></td>
                                                     <td ><?php echo $user_info_admin['date_naissance']; ?></td>
-                                                    <td ><?php echo $user_info_admin['password']; ?></td>
+                                                    <td ><?php echo $user_info_admin['pwd']; ?></td>
                                                     <td ><?php echo $user_info_admin['date_create']; ?></td>
                                                     <td ><?php echo $user_info_admin['date_update']; ?></td>
                                                     <td> 

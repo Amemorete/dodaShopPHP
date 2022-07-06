@@ -68,7 +68,7 @@ if(isset($_POST['modif']))
             
         </div>
 
-    <form  th:object="${categorie}" method="POST">
+    <form   method="POST">
         <input type="hidden" th:field="*{id}" />
         <div class="input-group input-group-default">
             <input type="text" name="libelle" placeholder="le nom du categorie" class="form-control m-4 col-4  ">

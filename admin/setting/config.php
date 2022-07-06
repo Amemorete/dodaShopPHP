@@ -52,7 +52,7 @@ class project2
 	
 	public function meadmin_check($admin_username,$admin_password)
 	{
-		$meadin_login_select = "SELECT * from users where email='$admin_username' AND password='$admin_password'";
+		$meadin_login_select = "SELECT * from users where email='$admin_username' AND pwd='$admin_password'";
 		$meadmin_login_run = $this->connectdb->query($meadin_login_select);
 		// var_dump($meadmin_login_run);
 		if($meadmin_login_run){
@@ -63,7 +63,7 @@ class project2
 	}
 	public function meadmin_username($adminname)
 	{
-		$meadmin_username_select = "SELECT * from meadmin where admin_username='$adminname'";
+		$meadmin_username_select = "SELECT * from users where email='$adminname'";
 		$meadmin_username_run = $this->connectdb->query($meadmin_username_select);
 		return $meadmin_username_run;
 	}
@@ -106,7 +106,14 @@ class project2
 	/// get produit
 	public function produit_info_display_admin()
 	{
-		$produit_info_admin = "SELECT * from produit p, categorie c where p.id_categorie=c.id";
+		$produit_info_admin = "SELECT * from produit p, categorie c where c.id=p.id_categorie";
+		$produit_info_admin_run = $this->connectdb->query($produit_info_admin);
+		return $produit_info_admin_run;
+	}
+	/// getById produit
+	public function getByIdProduit($id)
+	{
+		$produit_info_admin = "SELECT * from produit where idProd='$id'";
 		$produit_info_admin_run = $this->connectdb->query($produit_info_admin);
 		return $produit_info_admin_run;
 	}
@@ -157,7 +164,7 @@ class project2
 	//add users
 	public function add_user($std_abilite,$std_adresse,$std_date,$std_email,$std_nom,$std_password,$std_prenom, $std_sexe)
 	{
-		$add_users = "insert into users (abilite,adresse,date_naissance,email,nom,password,prenom,sexe) value ('$std_abilite','$std_adresse','$std_date','$std_email','$std_nom','$std_password','$std_prenom', '$std_sexe')";
+		$add_users = "insert into users (abilite,adresse,date_naissance,email,nom,pwd,prenom,sexe) value ('$std_abilite','$std_adresse','$std_date','$std_email','$std_nom','$std_password','$std_prenom', '$std_sexe')";
 		$add_user_run = $this->connectdb->query($add_users);
 		
 		return $add_user_run;
@@ -169,7 +176,7 @@ class project2
 	public function up_user($std_abilite,$std_adresse,$std_date,$std_email,$std_nom,$std_password,$std_prenom, $std_sexe, $std_date_up,$up_userid)
 	{
 		$up_users = "UPDATE users set  abilite='$std_abilite',adresse='$std_adresse',date_naissance='$std_date',
-		email='$std_email',nom='$std_nom',password='$std_password',prenom='$std_prenom',sexe='$std_sexe' , date_update='$std_date_up' where id='$up_userid'";
+		email='$std_email',nom='$std_nom',pwd='$std_password',prenom='$std_prenom',sexe='$std_sexe' , date_update='$std_date_up' where id='$up_userid'";
 		
 		$up_user_run = $this->connectdb->query($up_users);
 		
@@ -182,6 +189,31 @@ class project2
 	$delete_user_info = " delete from users where id='$del_user' ";
 	$delete_user_info_run = $this->connectdb->query($delete_user_info);
 	return $delete_user_info_run;
+	}
+
+
+	//add produit
+	public function add_produit($add_p_nom,$add_p_qte,$add_p_prix,$add_p_description,$add_p_categorie,$photo1,$photo2,$photo3,$photo4)
+	{
+	$add_produit = "insert into produit (libelleProd,quantite,prix_unitaire,description,id_categorie,photo1,photo2,photo3,photo4)
+	 value ('$add_p_nom','$add_p_qte','$add_p_prix','$add_p_description','$add_p_categorie','$photo1','$photo2','$photo3','$photo4')";
+	$add_produit_run = $this->connectdb->query($add_produit);
+		return $add_produit_run;
+	}
+	//update produit
+	public function update_produit($add_p_nom,$add_p_qte,$add_p_prix,$add_p_description,$add_p_categorie,$photo1,$photo2,$photo3,$photo4,$add_p_date,$up_produitid)
+	{
+	$add_produit = "UPDATE produit set libelleProd='$add_p_nom',quantite='$add_p_qte',prix_unitaire='$add_p_prix',description='$add_p_description',
+	id_categorie='$add_p_categorie',photo1='$photo1',photo2='$photo2',photo3='$photo3',photo4='$photo4', date_updatep='$add_p_date' where idProd='$up_produitid'";
+	$add_produit_run = $this->connectdb->query($add_produit);
+		return $add_produit_run;
+	}
+	//////// delete produit form admin //////////////////////
+	public function delete_produit($del_produit)
+	{
+	$delete_produit_info = " delete from produit where idProd='$del_produit' ";
+	$delete_produit_info_run = $this->connectdb->query($delete_produit_info);
+	return $delete_produit_info_run;
 	}
 
 

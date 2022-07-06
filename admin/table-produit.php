@@ -1,5 +1,12 @@
 <?php
 
+include "setting/config.php";
+session_start();
+if(!$_SESSION['admin'])
+{
+	header("location:../login.php");
+}
+
 
 
 if(isset($_POST['add_produit_info']))
@@ -7,33 +14,47 @@ if(isset($_POST['add_produit_info']))
 	 //$add_t_fullname,$add_t_address,$add_t_email,$add_t_username,$add_t_pass,$add_t_father,$add_t_mother,$add_t_dob,$add_t_qualification,$add_t_contact,$add_t_staff,$add_t_gender
 	 
      $add_p_nom = $_POST['nom'];
-     $add_p_prix = $_POST['quantite'];
+     $add_p_qte = $_POST['quantite'];
      $add_p_prix = $_POST['prixUnitaire'];
      $add_p_description = $_POST['description'];
      $add_p_categorie = $_POST['categorie'];
 
 
-     $add_p_libelle = $_POST['libelle_add'];
-     $add_p_libelle = $_POST['libelle_add'];
-     $add_p_libelle = $_POST['libelle_add'];
-     $add_p_libelle = $_POST['libelle_add'];
-     $add_p_libelle = $_POST['libelle_add'];
+
+     $photo1=$_FILES['image1']['name'];
+     $upload="picture/".$photo1;
+     move_uploaded_file($_FILES['image1']['tmp_name'],$upload);
+
+     $photo2=$_FILES['image2']['name'];
+     $upload="picture/".$photo2;
+     move_uploaded_file($_FILES['image2']['tmp_name'],$upload);
+
+     $photo3=$_FILES['image3']['name'];
+     $upload="picture/".$photo3;
+     move_uploaded_file($_FILES['image3']['tmp_name'],$upload);
+
+     $photo4=$_FILES['image4']['name'];
+     $upload="picture/".$photo4;
+     move_uploaded_file($_FILES['image4']['tmp_name'],$upload);
+
+
     
-	 if( $add_c_libelle=="" ){
+    
+	 if( $add_p_nom=="" OR  $add_p_prix=="" OR   $add_p_qte=="" OR $add_p_description=="" OR  $add_p_categorie==""){
 		 echo "<script>alert('remplir le formulaire....');</script>";
 	 }
 	 else
 	 {
 	
-        $add_done = $ravi->add_categorie($add_c_libelle);
+        $add_done = $ravi->add_produit($add_p_nom,$add_p_qte,$add_p_prix,$add_p_description,$add_p_categorie,$photo1,$photo2,$photo3,$photo4);
 	 
 	 if($add_done==true)
 	 {
-		 echo "<script>window.location='produit.php?produit=produit-information';</script>";
+		 echo "<script>window.location='table-produit.php?produit=produit-information';</script>";
 	 }
 	 else
 	 {
-		 echo "<script>alert('unsuccess add teacher information');</script>";
+		 echo "<script>alert('unsuccess add produit information');</script>";
 	 }
  }
  }
@@ -41,14 +62,8 @@ if(isset($_POST['add_produit_info']))
 
 
 
-<?php 
-session_start();
-
-
-include "setting/config.php";
-?>
 <!DOCTYPE html>
-<html lang="fr"  xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" >
 
 <head>
     <meta charset="utf-8">
@@ -95,14 +110,51 @@ include "setting/config.php";
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
                             <li><a href="index.php">Dashboard 1</a></li>
-                            <li><a href="index1.html">Dashboard 2</a></li>
+                            <li><a href="#">Dashboard 2 </a></li>
                         </ul>
                     </li>
 
                     <li class="label">Apps</li>
                     <li><a href="uc-calendar.php"><i class="ti-calendar"></i> Calandrier </a></li>
-                    <li><a href="email.php"><i class="ti-email"></i> Email</a></li>
-                    <li><a href="profile.php"><i class="ti-user"></i> Profile</a></li>
+                    <li><a href="table-produit.php"><i class="ti-truck"></i>produits</a></li>
+                    <li><a href="table-categorie.php"><i class="ti-view-list-alt"></i>categories </a></li>
+        
+                    <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="table-basic.php">Basic</a></li>
+
+                            <li><a href="table-users.php">Utilisateurs</a></li>
+                           
+                        </ul>
+                    </li>
+                    <li><a href="deconnexion.php"> <i class="ti-power-off"></i>Deconnexion </a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /# sidebar -->
+
+
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <ul>
+                    <div class="logo"><a href="/admin">
+                            <!-- <img src="assets/images/logo.png" alt="" /> --><span>DodoaShop</span></a></div>
+                    <li class="label">Main</li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span
+                                class="badge badge-primary">2</span> <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="index.php">Dashboard 1</a></li>
+                            <li><a href="deconnexion.php">Deconnexion </a></li>
+                        </ul>
+                    </li>
+
+                    <li class="label">Apps</li>
+                    <li><a href="uc-calendar.php"><i class="ti-calendar"></i> Calandrier </a></li>
                     <li><a href="table-produit.php"><i class="ti-truck"></i>produits</a></li>
                     <li><a href="table-categorie.php"><i class="ti-view-list-alt"></i>categories </a></li>
         
@@ -120,8 +172,6 @@ include "setting/config.php";
             </div>
         </div>
     </div>
-    <!-- /# sidebar -->
-
 
     <div class="header">
         <div class="container-fluid">
@@ -142,119 +192,12 @@ include "setting/config.php";
                                     <div class="dropdown-content-heading">
                                         <span class="text-left">Recent Notifications</span>
                                     </div>
-                                    <div class="dropdown-content-body">
-                                        <ul>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mr. John</div>
-                                                        <div class="notification-text">5 members joined today </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mariam</div>
-                                                        <div class="notification-text">likes a photo of you</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Tasnim</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mr. John</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="text-center">
-                                                <a href="#" class="more-link">See All</a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
-                                <i class="ti-email"></i>
-                                <div class="drop-down dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-content-heading">
-                                        <span class="text-left">2 New Messages</span>
-                                        <a href="email.html">
-                                            <i class="ti-pencil-alt pull-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="dropdown-content-body">
-                                        <ul>
-                                            <li class="notification-unread">
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/1.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Michael Qin</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="notification-unread">
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/2.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mr. John</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Michael Qin</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/2.jpg" alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                        <div class="notification-heading">Mr. John</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="text-center">
-                                                <a href="#" class="more-link">See All</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
-                                <span class="user-avatar">John
+                                <span class="user-avatar">Admin
                                     <i class="ti-angle-down f-s-10"></i>
                                 </span>
                                 <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
@@ -265,35 +208,9 @@ include "setting/config.php";
                                     <div class="dropdown-content-body">
                                         <ul>
                                             <li>
-                                                <a href="#">
-                                                    <i class="ti-user"></i>
-                                                    <span>Profile</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-email"></i>
-                                                    <span>Inbox</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-settings"></i>
-                                                    <span>Setting</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-lock"></i>
-                                                    <span>Lock Screen</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
+                                                <a href="deconnexion.php">
                                                     <i class="ti-power-off"></i>
-                                                    <span>Logout</span>
+                                                    <span>Se deconnecter</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -306,7 +223,6 @@ include "setting/config.php";
             </div>
         </div>
     </div>
-
 
 
 
@@ -401,7 +317,7 @@ include "setting/config.php";
                     
                                 </div>
                                 
-                                <button type="submit" class="btn btn-success col-3"> Ajouter</button>
+                                <button type="submit" class="btn btn-success col-3" name="add_produit_info"> Ajouter</button>
                                 <button type="reset" class="btn btn-info col-3 m-4"> Annuler</button>
                             </form>
                         </div>
@@ -450,24 +366,25 @@ include "setting/config.php";
 													?>	
                                                     <tr >
     
-                                                        <td class="btn-success" ><?php echo $produit_info_admin['id']; ?></td>
+                                                        <td class="btn-success" ><?php echo $produit_info_admin['idProd']; ?></td>
                                                         <td > <?php echo $produit_info_admin['libelleProd']; ?></td>
                                                         <td ><?php echo $produit_info_admin['quantite']; ?></td>
                                                          <td ><?php echo $produit_info_admin['prix_unitaire']; ?></td>
                                                          <td ><?php echo $produit_info_admin['description']; ?></td>
-                                                         <td ><img   width="100" height="50" ><?php echo $produit_info_admin['photo1']; ?></td>
-                                                         <td ><img   width="100" height="50" ><?php echo $produit_info_admin['photo2']; ?></td>
-                                                         <td ><img   width="100" height="50" ><?php echo $produit_info_admin['photo3']; ?></td>
-                                                         <td ><img   width="100" height="50" ><?php echo $produit_info_admin['photo4']; ?></td>
+                                                        
+                                                         <td ><img   width="100" height="50"  src="<?php echo 'picture/'.$produit_info_admin['photo1']; ?>"></td>
+                                                         <td ><img   width="100" height="50"  src="<?php echo 'picture/'.$produit_info_admin['photo2']; ?>"></td>
+                                                         <td ><img   width="100" height="50"  src="<?php echo 'picture/'.$produit_info_admin['photo3']; ?>"></td>
+                                                         <td ><img   width="100" height="50"  src="<?php echo 'picture/'.$produit_info_admin['photo4']; ?>"></td>
                                                          <td ><?php echo $produit_info_admin['libelle']; ?></td>
-                                                        <td ><?php echo $produit_info_admin['date_create']; ?></td>
-                                                         <td ><?php echo $produit_info_admin['date_update']; ?></td>
+                                                        <td ><?php echo $produit_info_admin['date_createp']; ?></td>
+                                                         <td ><?php echo $produit_info_admin['date_updatep']; ?></td>
                                                         
                 
                                                         
                                                         <td> 
-                                                            <a th:href="@{/formUpdateProduit/{id}(id=${produit.id})}" class="btn btn-primary text-white"> Modifier</a>
-                                                            <a th:href="@{/deleteProduit/{id}(id=${produit.id})}" class="btn btn-danger text-white"> Supprimer</a>
+                                                        <a href="update_produit.php?produit=produit-up&produitid=<?php echo $produit_info_admin['idProd']; ?>" class="btn btn-primary text-white"> Modifier</a>
+                                                            <a href="del_produit.php?produit=produit-del&produitid=<?php echo $produit_info_admin['idProd']; ?>" class="btn btn-danger text-white"> Supprimer</a>
                                                             
                                                         </td>
                                                     </tr>

@@ -97,7 +97,7 @@ $row= $dis_general_data->fetch_assoc();
        
        <div class="col-md-6 form-group1">
            <label class="control-label">Mot de passe</label>
-           <input type="text"  value="<?php echo $row['password']; ?>" required="" name="pwd" class="form-control">
+           <input type="text"  value="<?php echo $row['pwd']; ?>" required="" name="pwd" class="form-control">
        </div>
 
        
