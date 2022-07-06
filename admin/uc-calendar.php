@@ -65,14 +65,12 @@
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
                             <li><a href="index.php">Dashboard 1</a></li>
-                            <li><a href="index1.html">Dashboard 2</a></li>
+                            <li><a href="#">Dashboard 2 </a></li>
                         </ul>
                     </li>
 
                     <li class="label">Apps</li>
                     <li><a href="uc-calendar.php"><i class="ti-calendar"></i> Calandrier </a></li>
-                    <li><a href="email.php"><i class="ti-email"></i> Email</a></li>
-                    <li><a href="profile.php"><i class="ti-user"></i> Profile</a></li>
                     <li><a href="table-produit.php"><i class="ti-truck"></i>produits</a></li>
                     <li><a href="table-categorie.php"><i class="ti-view-list-alt"></i>categories </a></li>
         
@@ -85,12 +83,12 @@
                            
                         </ul>
                     </li>
+                    <li><a href="deconnexion.php"> <i class="ti-power-off"></i>Deconnexion </a></li>
                     
                 </ul>
             </div>
         </div>
-    </div>
-        <!-- /# sidebar -->
+    </div>bar -->
 
 
     <div class="header">

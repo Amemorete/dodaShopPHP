@@ -167,6 +167,7 @@ if(isset($_POST['add_produit_info']))
                            
                         </ul>
                     </li>
+                    <li><a href="deconnexion.php"> <i class="ti-power-off"></i>Deconnexion </a></li>
                     
                 </ul>
             </div>

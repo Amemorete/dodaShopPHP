@@ -1,3 +1,6 @@
+<?php
+
+include "admin/setting/config.php";?>
 <!DOCTYPE html>
 <html lang="en" xmlns:f="http://xmlns.jcp.org/jsf/core" 
 xmlns:h="http://xmlns.jcp.org/jsf/html">
@@ -363,6 +366,31 @@ border: none;" width="100%" height="320vh">
 
       </div>
     </section><!-- End Counts Section -->
+
+    
+
+  <section>
+    <div class="container">
+    
+            <div class="row ">
+            <?php $produit_dis_admin = $ravi-> produit_info_display_admin();
+								$t_sn = 1;
+								while($produit_info_admin =$produit_dis_admin->fetch_assoc())					{
+									
+								
+													?>	
+              <div class="card col-md-2 mr-4 "  >
+                  <img class="card-img-top" src="<?php echo 'admin/picture/'.$produit_info_admin['photo1']; ?>" alt="Card image" >
+                  <div class="card-body text-center">
+                    <h4 class="card-title"><?php echo $produit_info_admin['libelleProd']; ?></h4>
+                    <p class="card-text"><?php echo $produit_info_admin['description']; ?></p>
+                    <a href="del_produit.php?produit=produit-del&produitid=<?php echo $produit_info_admin['idProd']; ?>" class="btn btn-primary ">En savoir plus</a>
+                  </div>
+                </div>
+                <?php $t_sn++; } ?>
+            </div>
+    </div>
+  </section>
 
 
     <!-- ======= Trainers Section ======= -->
